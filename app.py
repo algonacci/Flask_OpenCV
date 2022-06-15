@@ -127,6 +127,10 @@ def take_image():
 def video_feed_dataset():
 	return Response(gen_frames_dataset(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route('/recognition')
+def recognition():
+    return render_template('recognition.html')
+
 @app.route('/video_feed_recognition')
 def video_feed_recognition():
 	return Response(gen_frames_recognition(), mimetype='multipart/x-mixed-replace; boundary=frame')
