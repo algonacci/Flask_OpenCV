@@ -115,18 +115,6 @@ def gen_frames_recognition():
 def index():
 	return render_template('index.html')
 
-@app.route('/input_id')
-def inout_id():
-    return render_template('input_id.html')
-
-@app.route('/dataset')
-def take_image():
-    return render_template('dataset.html')
-
-@app.route('/video_feed_dataset')
-def video_feed_dataset():
-	return Response(gen_frames_dataset(), mimetype='multipart/x-mixed-replace; boundary=frame')
-
 @app.route('/recognition')
 def recognition():
     return render_template('recognition.html')
