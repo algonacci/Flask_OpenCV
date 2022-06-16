@@ -30,34 +30,6 @@ camera.set(4, 480)  # set video height
 minW = 0.1*camera.get(3)
 minH = 0.1*camera.get(4)
 
-
-def gen_frames_dataset():
-    while True:
-        count = 0
-        face_id = 1
-        img, frame = camera.read()
-        # img = cv2.flip(img, -1) # flip video image vertically
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        faces = faceCascade.detectMultiScale(gray, 1.3, 5)
-
-        for (x, y, w, h) in faces:
-            cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
-            count += 1
-            # Save the captured image into the datasets folder
-            cv2.imwrite("dataset/User." + str(face_id) + '.' +
-                    str(count) + ".jpg", gray[y:y+h, x:x+w])
-            cv2.imshow('image', img)
-
-        if count >= 30:  # Take 30 face sample and stop video
-            break
-        else:
-            ret, buffer = cv2.imencode('.jpg', frame)
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-                   
-
-
 def gen_frames_recognition():
     while True:
         succes, frame = camera.read()
